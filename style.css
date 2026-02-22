@@ -1,0 +1,397 @@
+/* =============================================
+   ROMANTIC ANNIVERSARY SITE — STYLE.CSS
+   Palette: Soft pink & rose gold, dreamy
+   ============================================= */
+
+:root {
+  --pink-light: #ffe0ec;
+  --pink-mid: #ffb3ce;
+  --pink-deep: #e8628a;
+  --pink-rose: #d4447a;
+  --rose-gold: #c9747a;
+  --cream: #fff5f8;
+  --white: #ffffff;
+  --text-dark: #4a1a2c;
+  --text-mid: #7a3a55;
+  --text-soft: #b07090;
+  --shadow-pink: rgba(232, 98, 138, 0.2);
+  --shadow-rose: rgba(212, 68, 122, 0.3);
+}
+
+/* ---- Reset & Base ---- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: linear-gradient(160deg, #fff0f5 0%, #ffe8f1 40%, #ffd6e8 70%, #ffcce3 100%);
+  min-height: 100vh;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  color: var(--text-dark);
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Subtle noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+/* ---- Canvas ---- */
+#heartsCanvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ---- Layout ---- */
+main {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+/* ---- Header ---- */
+header {
+  text-align: center;
+  padding: 80px 0 50px;
+  animation: fadeDown 1s ease both;
+}
+
+.eyebrow {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--text-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 12px;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  background: linear-gradient(135deg, var(--pink-rose) 0%, var(--rose-gold) 50%, var(--pink-deep) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+
+.date-display {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: var(--pink-rose);
+  letter-spacing: 0.05em;
+}
+
+/* ---- Counter Section ---- */
+.counter-section {
+  text-align: center;
+  margin-bottom: 80px;
+  animation: fadeUp 1s ease 0.3s both;
+}
+
+.counter-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+@media (max-width: 540px) {
+  .counter-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.counter-card {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(255, 179, 206, 0.5);
+  border-radius: 20px;
+  padding: 28px 16px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 8px 32px var(--shadow-pink), inset 0 1px 0 rgba(255,255,255,0.8);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.counter-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px var(--shadow-rose);
+}
+
+.counter-number {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 700;
+  color: var(--pink-rose);
+  line-height: 1;
+  min-width: 2ch;
+  text-align: center;
+}
+
+.counter-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+.counter-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--text-soft);
+}
+
+/* ---- Hearts / Photos Section ---- */
+.hearts-section {
+  text-align: center;
+  margin-bottom: 80px;
+  animation: fadeUp 1s ease 0.5s both;
+}
+
+.hearts-section h2,
+.next-anni-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--pink-rose);
+  margin-bottom: 8px;
+}
+
+.section-sub {
+  font-size: 1rem;
+  color: var(--text-soft);
+  font-style: italic;
+  margin-bottom: 40px;
+}
+
+.heart-photos-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.heart-photo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.heart-photo-wrapper:hover {
+  transform: scale(1.04);
+}
+
+/* Heart shape via CSS clip-path */
+.heart-clip {
+  width: 160px;
+  height: 152px;
+  clip-path: path('M80 140 C80 140 10 100 10 50 C10 20 30 5 55 5 C67 5 78 12 80 18 C82 12 93 5 105 5 C130 5 150 20 150 50 C150 100 80 140 80 140 Z');
+  background: linear-gradient(135deg, var(--pink-mid), var(--pink-deep));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 8px 30px var(--shadow-rose);
+  transition: box-shadow 0.3s ease;
+  animation: floatHeart 4s ease-in-out infinite;
+}
+
+.heart-clip:hover {
+  box-shadow: 0 14px 40px var(--shadow-rose);
+}
+
+.center-heart .heart-clip {
+  width: 220px;
+  height: 209px;
+  clip-path: path('M110 195 C110 195 10 138 10 65 C10 27 38 5 72 5 C93 5 107 16 110 24 C113 16 127 5 148 5 C182 5 210 27 210 65 C210 138 110 195 110 195 Z');
+  animation-delay: -1s;
+  animation-duration: 3.5s;
+}
+
+.heart-1 { animation-delay: 0s; }
+.heart-3 { animation-delay: -2s; }
+
+@keyframes floatHeart {
+  0%, 100% { transform: translateY(0px) rotate(-1deg); }
+  50% { transform: translateY(-10px) rotate(1deg); }
+}
+
+.heart-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.heart-photo.hidden { display: none; }
+
+.heart-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255,255,255,0.9);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  padding: 10px;
+  text-align: center;
+}
+
+.plus-icon {
+  font-size: 2rem;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.file-input {
+  display: none;
+}
+
+.heart-caption {
+  margin-top: 14px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--text-mid);
+}
+
+/* ---- Message Section ---- */
+.message-section {
+  text-align: center;
+  margin-bottom: 80px;
+  animation: fadeUp 1s ease 0.7s both;
+}
+
+.message-card {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(16px);
+  border: 1.5px solid rgba(255, 179, 206, 0.45);
+  border-radius: 32px;
+  padding: 48px 40px;
+  box-shadow: 0 12px 48px var(--shadow-pink), inset 0 1px 0 rgba(255,255,255,0.9);
+  position: relative;
+  overflow: hidden;
+}
+
+.message-card::before {
+  content: '❝';
+  position: absolute;
+  top: 12px;
+  left: 24px;
+  font-size: 5rem;
+  color: var(--pink-mid);
+  opacity: 0.4;
+  font-family: Georgia, serif;
+  line-height: 1;
+}
+
+.message-quote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  color: var(--text-dark);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.message-sig {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  color: var(--pink-rose);
+  font-style: italic;
+}
+
+/* ---- Next Anniversary ---- */
+.next-anni-section {
+  text-align: center;
+  animation: fadeUp 1s ease 0.9s both;
+}
+
+.next-anni-display {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin: 28px 0 12px;
+  flex-wrap: wrap;
+}
+
+.next-anni-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.next-anni-item span:first-child {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  color: var(--pink-rose);
+  line-height: 1;
+}
+
+.next-anni-item span:last-child {
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+.next-anni-date {
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--text-soft);
+}
+
+/* ---- Footer ---- */
+footer {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 24px;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: var(--text-soft);
+  font-size: 1rem;
+}
+
+/* ---- Keyframes ---- */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
