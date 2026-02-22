@@ -201,7 +201,6 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  cursor: pointer;
   transition: transform 0.3s ease;
 }
 
@@ -371,6 +370,34 @@ h1 {
   font-style: italic;
   font-size: 1.1rem;
   color: var(--text-soft);
+}
+
+/* ---- Photo Instructions ---- */
+.photo-instructions {
+  margin-top: 32px;
+  font-size: 0.92rem;
+  color: var(--text-soft);
+  font-style: italic;
+  background: rgba(255,255,255,0.5);
+  border: 1px dashed var(--pink-mid);
+  border-radius: 14px;
+  padding: 14px 22px;
+  display: inline-block;
+  line-height: 1.7;
+}
+.photo-instructions strong { color: var(--pink-rose); font-style: normal; }
+.photo-instructions code {
+  background: var(--pink-light);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.88rem;
+  font-style: normal;
+  color: var(--pink-rose);
+}
+.photo-hint {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  opacity: 0.85;
 }
 
 /* ---- Footer ---- */
