@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Love Story 💕</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Floating hearts canvas -->
+  <canvas id="heartsCanvas"></canvas>
+
+  <!-- Main content -->
+  <main>
+
+    <header>
+      <p class="eyebrow">A love story written in stars</p>
+      <h1>Together Since</h1>
+      <p class="date-display">August 22, 2025</p>
+    </header>
+
+    <!-- Counter Section -->
+    <section class="counter-section">
+      <div class="counter-grid">
+        <div class="counter-card">
+          <span class="counter-number" id="days">0</span>
+          <span class="counter-label">Days</span>
+        </div>
+        <div class="counter-card">
+          <span class="counter-number" id="hours">0</span>
+          <span class="counter-label">Hours</span>
+        </div>
+        <div class="counter-card">
+          <span class="counter-number" id="minutes">0</span>
+          <span class="counter-label">Minutes</span>
+        </div>
+        <div class="counter-card">
+          <span class="counter-number" id="seconds">0</span>
+          <span class="counter-label">Seconds</span>
+        </div>
+      </div>
+      <p class="counter-subtitle">of loving each other</p>
+    </section>
+
+    <!-- Photo Hearts Section -->
+    <section class="hearts-section">
+      <h2>Our Memories</h2>
+      <p class="section-sub">Add your photos to these hearts</p>
+
+      <div class="heart-photos-row">
+
+        <!-- Heart Photo 1 -->
+        <div class="heart-photo-wrapper" onclick="triggerUpload('photo1')">
+          <div class="heart-clip heart-1">
+            <img id="photo1-img" src="" alt="Your photo" class="heart-photo hidden" />
+            <div class="heart-placeholder" id="photo1-placeholder">
+              <span class="plus-icon">＋</span>
+              <span>Add Photo</span>
+            </div>
+          </div>
+          <input type="file" id="photo1" accept="image/*" class="file-input" onchange="loadPhoto(this, 'photo1-img', 'photo1-placeholder')" />
+          <p class="heart-caption">Our First Memory</p>
+        </div>
+
+        <!-- Heart Photo 2 (center, bigger) -->
+        <div class="heart-photo-wrapper center-heart" onclick="triggerUpload('photo2')">
+          <div class="heart-clip heart-2">
+            <img id="photo2-img" src="" alt="Your photo" class="heart-photo hidden" />
+            <div class="heart-placeholder" id="photo2-placeholder">
+              <span class="plus-icon">＋</span>
+              <span>Add Photo</span>
+            </div>
+          </div>
+          <input type="file" id="photo2" accept="image/*" class="file-input" onchange="loadPhoto(this, 'photo2-img', 'photo2-placeholder')" />
+          <p class="heart-caption">Us ♡</p>
+        </div>
+
+        <!-- Heart Photo 3 -->
+        <div class="heart-photo-wrapper" onclick="triggerUpload('photo3')">
+          <div class="heart-clip heart-3">
+            <img id="photo3-img" src="" alt="Your photo" class="heart-photo hidden" />
+            <div class="heart-placeholder" id="photo3-placeholder">
+              <span class="plus-icon">＋</span>
+              <span>Add Photo</span>
+            </div>
+          </div>
+          <input type="file" id="photo3" accept="image/*" class="file-input" onchange="loadPhoto(this, 'photo3-img', 'photo3-placeholder')" />
+          <p class="heart-caption">My Favourite Day</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Love message -->
+    <section class="message-section">
+      <div class="message-card">
+        <p class="message-quote">"Every moment with you is a moment I treasure forever."</p>
+        <p class="message-sig">With all my love 💕</p>
+      </div>
+    </section>
+
+    <!-- Next anniversary countdown -->
+    <section class="next-anni-section">
+      <h2>Next Anniversary</h2>
+      <div id="next-anniversary-counter" class="next-anni-display">
+        <div class="next-anni-item"><span id="next-days">-</span><span>days</span></div>
+        <div class="next-anni-item"><span id="next-hours">-</span><span>hours</span></div>
+        <div class="next-anni-item"><span id="next-minutes">-</span><span>minutes</span></div>
+      </div>
+      <p class="next-anni-date" id="next-anni-date"></p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Made with ♡ just for us</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
