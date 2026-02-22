@@ -1,181 +1,208 @@
-/* =============================================
-   ROMANTIC ANNIVERSARY SITE — SCRIPT.JS
-   - Live countdown since anniversary date
-   - Next anniversary countdown
-   - Floating hearts canvas animation
-   - Photo upload into heart shapes
-   ============================================= */
+/* ================================================
+   RAZEM — SCRIPT.JS
+   Licznik miłości od 22 sierpnia 2025
+   ================================================ */
 
-// ---- Anniversary Date ----
 const ANNIVERSARY = new Date('2025-08-22T00:00:00');
 
-// ---- Live Counter ----
-function updateCounter() {
-  const now = new Date();
-  const diff = now - ANNIVERSARY;
+// ---- Helpers ----
+function pad(n) { return String(n).padStart(2, '0'); }
+function fmt(n) { return n.toLocaleString('pl-PL'); }
+
+// Compute years/months/days since a date (calendar-accurate)
+function elapsed(from, to) {
+  let years  = to.getFullYear() - from.getFullYear();
+  let months = to.getMonth()    - from.getMonth();
+  let days   = to.getDate()     - from.getDate();
+
+  if (days < 0) {
+    months--;
+    const prev = new Date(to.getFullYear(), to.getMonth(), 0);
+    days += prev.getDate();
+  }
+  if (months < 0) { years--; months += 12; }
+
+  return { years, months, days };
+}
+
+// ---- Main update ----
+function tick() {
+  const now  = new Date();
+  const diff = now - ANNIVERSARY;   // ms
 
   if (diff < 0) {
-    // Future: count down to the date instead
-    const absDiff = Math.abs(diff);
-    const days = Math.floor(absDiff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((absDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((absDiff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((absDiff % (1000 * 60)) / 1000);
-    document.getElementById('days').textContent = String(days).padStart(2, '0');
-    document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-    document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
-    document.querySelector('.counter-subtitle').textContent = 'until our love begins ✨';
+    // Countdown to future start
+    const abs  = Math.abs(diff);
+    const d    = Math.floor(abs / 864e5);
+    const h    = Math.floor((abs % 864e5) / 36e5);
+    const m    = Math.floor((abs % 36e5)  / 6e4);
+    const s    = Math.floor((abs % 6e4)   / 1e3);
+    document.getElementById('years').textContent   = '0';
+    document.getElementById('months').textContent  = '0';
+    document.getElementById('days').textContent    = d;
+    document.getElementById('hours').textContent   = pad(h);
+    document.getElementById('minutes').textContent = pad(m);
+    document.getElementById('seconds').textContent = pad(s);
+    // totals all zero
+    ['total-days','total-hours','total-minutes','total-seconds'].forEach(id => {
+      document.getElementById(id).textContent = '0';
+    });
     return;
   }
 
-  const totalSeconds = Math.floor(diff / 1000);
-  const seconds = totalSeconds % 60;
-  const totalMinutes = Math.floor(totalSeconds / 60);
-  const minutes = totalMinutes % 60;
-  const totalHours = Math.floor(totalMinutes / 60);
-  const hours = totalHours % 24;
-  const days = Math.floor(totalHours / 24);
+  // Calendar breakdown
+  const { years, months, days } = elapsed(ANNIVERSARY, now);
+  document.getElementById('years').textContent   = years;
+  document.getElementById('months').textContent  = months;
+  document.getElementById('days').textContent    = days;
 
-  document.getElementById('days').textContent = days.toLocaleString();
-  document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-  document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-  document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+  // Clock portion
+  const totalSec = Math.floor(diff / 1000);
+  document.getElementById('hours').textContent   = pad(Math.floor((totalSec % 86400) / 3600));
+  document.getElementById('minutes').textContent = pad(Math.floor((totalSec % 3600)  / 60));
+  document.getElementById('seconds').textContent = pad(totalSec % 60);
+
+  // Totals
+  const totalDays    = Math.floor(diff / 864e5);
+  const totalHours   = Math.floor(diff / 36e5);
+  const totalMinutes = Math.floor(diff / 6e4);
+  const totalSeconds = Math.floor(diff / 1e3);
+
+  document.getElementById('total-days').textContent    = fmt(totalDays);
+  document.getElementById('total-hours').textContent   = fmt(totalHours);
+  document.getElementById('total-minutes').textContent = fmt(totalMinutes);
+  document.getElementById('total-seconds').textContent = fmt(totalSeconds);
 }
 
-// ---- Next Anniversary Countdown ----
-function updateNextAnniversary() {
-  const now = new Date();
-  const thisYear = now.getFullYear();
-  let nextAnni = new Date(`${thisYear}-08-22T00:00:00`);
-  if (now >= nextAnni) {
-    nextAnni = new Date(`${thisYear + 1}-08-22T00:00:00`);
-  }
+// ---- Next anniversary ----
+function nextAnniversary() {
+  const now  = new Date();
+  const yr   = now.getFullYear();
+  let next   = new Date(`${yr}-08-22T00:00:00`);
+  if (now >= next) next = new Date(`${yr + 1}-08-22T00:00:00`);
 
-  const diff = nextAnni - now;
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const diff = next - now;
+  const d    = Math.floor(diff / 864e5);
+  const h    = Math.floor((diff % 864e5) / 36e5);
+  const m    = Math.floor((diff % 36e5)  / 6e4);
 
-  document.getElementById('next-days').textContent = days;
-  document.getElementById('next-hours').textContent = String(hours).padStart(2, '0');
-  document.getElementById('next-minutes').textContent = String(minutes).padStart(2, '0');
+  document.getElementById('a-days').textContent = d;
+  document.getElementById('a-hours').textContent = pad(h);
+  document.getElementById('a-min').textContent   = pad(m);
 
-  const yr = nextAnni.getFullYear();
-  document.getElementById('next-anni-date').textContent =
-    `August 22, ${yr} — Year ${yr - ANNIVERSARY.getFullYear()} Together 💕`;
+  const nextYr = next.getFullYear();
+  const n      = nextYr - ANNIVERSARY.getFullYear();
+  document.getElementById('anni-when').textContent =
+    `22 sierpnia ${nextYr} — nasza ${n}. rocznica 💕`;
 }
 
-setInterval(updateCounter, 1000);
-setInterval(updateNextAnniversary, 60000);
-updateCounter();
-updateNextAnniversary();
+// ---- Canvas: floating particles ----
+const canvas = document.getElementById('bg');
+const ctx    = canvas.getContext('2d');
 
-// ---- Photo Upload Helpers ----
-function triggerUpload(inputId) {
-  document.getElementById(inputId).click();
-}
-
-function loadPhoto(input, imgId, placeholderId) {
-  const file = input.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    const img = document.getElementById(imgId);
-    const placeholder = document.getElementById(placeholderId);
-    img.src = e.target.result;
-    img.classList.remove('hidden');
-    placeholder.style.display = 'none';
-  };
-  reader.readAsDataURL(file);
-}
-
-// ---- Floating Hearts Canvas ----
-const canvas = document.getElementById('heartsCanvas');
-const ctx = canvas.getContext('2d');
-
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
+function resize() {
+  canvas.width  = window.innerWidth;
   canvas.height = window.innerHeight;
 }
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
+window.addEventListener('resize', resize);
+resize();
 
-// Heart shape drawing helper
-function drawHeart(ctx, x, y, size) {
+// Particle types: tiny hearts + soft sparkles
+const PARTICLES = [];
+const COUNT = 55;
+
+function heartPath(ctx, x, y, s) {
   ctx.save();
   ctx.translate(x, y);
-  ctx.scale(size / 30, size / 30);
+  ctx.scale(s / 30, s / 30);
   ctx.beginPath();
-  ctx.moveTo(0, -5);
-  ctx.bezierCurveTo(0, -15, -20, -15, -20, 0);
-  ctx.bezierCurveTo(-20, 12, 0, 22, 0, 30);
-  ctx.bezierCurveTo(0, 22, 20, 12, 20, 0);
-  ctx.bezierCurveTo(20, -15, 0, -15, 0, -5);
+  ctx.moveTo(0, -4);
+  ctx.bezierCurveTo(0, -14, -18, -14, -18, 2);
+  ctx.bezierCurveTo(-18, 14, 0, 24, 0, 30);
+  ctx.bezierCurveTo(0, 24, 18, 14, 18, 2);
+  ctx.bezierCurveTo(18, -14, 0, -14, 0, -4);
   ctx.closePath();
   ctx.restore();
 }
 
-// Heart particles
-const HEART_COUNT = 28;
-const hearts = [];
-
-const COLORS = [
-  'rgba(255, 179, 206, ',
-  'rgba(232, 98, 138, ',
-  'rgba(212, 68, 122, ',
-  'rgba(255, 150, 190, ',
-  'rgba(255, 224, 236, ',
+const ROSE_SHADES = [
+  [232, 114, 138],
+  [240, 160, 180],
+  [255, 214, 228],
+  [201, 160, 106],
+  [245, 236, 228],
 ];
 
-for (let i = 0; i < HEART_COUNT; i++) {
-  hearts.push({
-    x: Math.random() * window.innerWidth,
-    y: Math.random() * window.innerHeight + window.innerHeight,
-    size: 8 + Math.random() * 24,
-    speedY: 0.4 + Math.random() * 0.9,
-    speedX: (Math.random() - 0.5) * 0.5,
-    opacity: 0.15 + Math.random() * 0.5,
-    wobble: Math.random() * Math.PI * 2,
-    wobbleSpeed: 0.01 + Math.random() * 0.02,
-    colorBase: COLORS[Math.floor(Math.random() * COLORS.length)],
-    rotation: (Math.random() - 0.5) * 0.4,
+for (let i = 0; i < COUNT; i++) {
+  const [r,g,b] = ROSE_SHADES[i % ROSE_SHADES.length];
+  PARTICLES.push({
+    x:       Math.random() * window.innerWidth,
+    y:       Math.random() * window.innerHeight * 2,
+    size:    3 + Math.random() * 10,
+    vy:      0.18 + Math.random() * 0.52,
+    vx:      (Math.random() - 0.5) * 0.3,
+    wobble:  Math.random() * Math.PI * 2,
+    ws:      0.008 + Math.random() * 0.015,
+    alpha:   0.06 + Math.random() * 0.22,
+    rot:     Math.random() * Math.PI * 2,
+    rSpeed:  (Math.random() - 0.5) * 0.008,
+    r, g, b,
+    isHeart: Math.random() > 0.35,
   });
 }
 
-function animateHearts() {
+function drawParticles() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  hearts.forEach(h => {
-    h.y -= h.speedY;
-    h.x += Math.sin(h.wobble) * 0.6 + h.speedX;
-    h.wobble += h.wobbleSpeed;
-    h.rotation += 0.003;
+  PARTICLES.forEach(p => {
+    p.y      -= p.vy;
+    p.x      += Math.sin(p.wobble) * 0.45 + p.vx;
+    p.wobble += p.ws;
+    p.rot    += p.rSpeed;
 
-    // Reset when off-screen top
-    if (h.y < -60) {
-      h.y = canvas.height + 60;
-      h.x = Math.random() * canvas.width;
+    if (p.y < -40) {
+      p.y = canvas.height + 40;
+      p.x = Math.random() * canvas.width;
     }
 
     ctx.save();
-    ctx.translate(h.x, h.y);
-    ctx.rotate(h.rotation);
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rot);
+    ctx.globalAlpha = p.alpha;
 
-    drawHeart(ctx, 0, 0, h.size);
-    ctx.fillStyle = h.colorBase + h.opacity + ')';
-    ctx.fill();
-
-    // Subtle glow
-    ctx.shadowBlur = 12;
-    ctx.shadowColor = h.colorBase + '0.3)';
-    ctx.fillStyle = h.colorBase + (h.opacity * 0.4) + ')';
-    ctx.fill();
+    if (p.isHeart) {
+      heartPath(ctx, 0, 0, p.size);
+      ctx.fillStyle = `rgb(${p.r},${p.g},${p.b})`;
+      ctx.shadowBlur  = 14;
+      ctx.shadowColor = `rgba(${p.r},${p.g},${p.b},0.4)`;
+      ctx.fill();
+    } else {
+      // sparkle: four-pointed star
+      const s = p.size * 0.5;
+      ctx.beginPath();
+      for (let k = 0; k < 8; k++) {
+        const angle = (k * Math.PI) / 4;
+        const r2    = k % 2 === 0 ? s : s * 0.35;
+        k === 0
+          ? ctx.moveTo(Math.cos(angle) * r2, Math.sin(angle) * r2)
+          : ctx.lineTo(Math.cos(angle) * r2, Math.sin(angle) * r2);
+      }
+      ctx.closePath();
+      ctx.fillStyle   = `rgb(${p.r},${p.g},${p.b})`;
+      ctx.shadowBlur  = 10;
+      ctx.shadowColor = `rgba(${p.r},${p.g},${p.b},0.5)`;
+      ctx.fill();
+    }
 
     ctx.restore();
   });
 
-  requestAnimationFrame(animateHearts);
+  requestAnimationFrame(drawParticles);
 }
 
-animateHearts();
+// ---- Start ----
+tick();
+nextAnniversary();
+setInterval(tick, 1000);
+setInterval(nextAnniversary, 30000);
+drawParticles();
