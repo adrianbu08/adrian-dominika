@@ -3,111 +3,107 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Adrian & Dominika 💕</title>
+  <title>Razem od 22.08.2025 💕</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,300;0,6..96,400;1,6..96,300;1,6..96,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <canvas id="heartsCanvas"></canvas>
+  <canvas id="bg"></canvas>
 
   <main>
 
-    <header>
-      <p class="eyebrow">Adrian Buda & Dominika Domin</p>
+    <section class="hero">
+      <p class="eyebrow">od kiedy się kochamy</p>
       <h1>Razem od</h1>
-      <p class="date-display">22 sierpnia 2025</p>
-    </header>
-
-    <section class="counter-section">
-      <div class="counter-grid">
-        <div class="counter-card">
-          <span class="counter-number" id="days">0</span>
-          <span class="counter-label">Dni</span>
-        </div>
-        <div class="counter-card">
-          <span class="counter-number" id="hours">0</span>
-          <span class="counter-label">Godziny</span>
-        </div>
-        <div class="counter-card">
-          <span class="counter-number" id="minutes">0</span>
-          <span class="counter-label">Minuty</span>
-        </div>
-        <div class="counter-card">
-          <span class="counter-number" id="seconds">0</span>
-          <span class="counter-label">Sekundy</span>
-        </div>
-      </div>
-      <p class="counter-subtitle">kochając się nawzajem</p>
+      <p class="start-date">22 sierpnia 2025</p>
     </section>
 
-    <!--
-      ╔══════════════════════════════════════════════════════╗
-      ║  ABY DODAĆ ZDJĘCIA:                                  ║
-      ║  Umieść swoje zdjęcia w tym samym folderze           ║
-      ║  co index.html i zmień nazwy poniżej:                ║
-      ║    src="foto1.jpg"  ← lewe serce                     ║
-      ║    src="foto2.jpg"  ← środkowe serce (główne)        ║
-      ║    src="foto3.jpg"  ← prawe serce                    ║
-      ╚══════════════════════════════════════════════════════╝
-    -->
-    <section class="hearts-section">
-      <h2>Nasze Wspomnienia</h2>
-
-      <div class="heart-photos-row">
-
-        <div class="heart-photo-wrapper">
-          <div class="heart-clip heart-1">
-            <img src="foto1.jpg" alt="Nasze pierwsze wspomnienie" class="heart-photo"
-              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-            <div class="heart-placeholder" style="display:none;">
-              <span class="plus-icon">♡</span><span>img-lewa.jpg</span>
-            </div>
-        <div class="heart-photo-wrapper center-heart">
-          <div class="heart-clip heart-2">
-            <img src="foto2.jpg" alt="My" class="heart-photo"
-              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-            <div class="heart-placeholder" style="display:none;">
-              <span class="plus-icon">♡</span><span>img-srodek.jpg</span>
-            </div>
-        <div class="heart-photo-wrapper">
-          <div class="heart-clip heart-3">
-            <img src="foto3.jpg" alt="Mój ulubiony dzień" class="heart-photo"
-              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-            <div class="heart-placeholder" style="display:none;">
-              <span class="plus-icon">♡</span><span>img-prawa.jpg</span>
-            </div>
+    <!-- Big live counter -->
+    <section class="live-counter">
+      <div class="unit-row">
+        <div class="unit" style="--d:0s">
+          <div class="number-wrap">
+            <span class="num" id="years">0</span>
+          </div>
+          <span class="label">lat</span>
+        </div>
+        <div class="sep">·</div>
+        <div class="unit" style="--d:.1s">
+          <div class="number-wrap">
+            <span class="num" id="months">0</span>
+          </div>
+          <span class="label">miesięcy</span>
+        </div>
+        <div class="sep">·</div>
+        <div class="unit" style="--d:.2s">
+          <div class="number-wrap">
+            <span class="num" id="days">0</span>
+          </div>
+          <span class="label">dni</span>
+        </div>
       </div>
 
-      <p class="photo-instructions">
-        💡 Umieść pliki <strong>foto1.jpg</strong>, <strong>foto2.jpg</strong>, <strong>foto3.jpg</strong>
-        w tym samym folderze co <em>index.html</em> — lub zmień ścieżki <code>src</code> w kodzie HTML.
-      </p>
-    </section>
-
-    <section class="message-section">
-      <div class="message-card">
-        <p class="message-quote">„Każda chwila spędzona z Tobą to chwila, którą będę skarbić na zawsze."</p>
-        <p class="message-sig">Z całą moją miłością 💕</p>
+      <div class="time-row">
+        <div class="time-block" style="--d:.35s">
+          <span class="t-num" id="hours">00</span>
+          <span class="t-label">godz.</span>
+        </div>
+        <div class="colon">:</div>
+        <div class="time-block" style="--d:.42s">
+          <span class="t-num" id="minutes">00</span>
+          <span class="t-label">min.</span>
+        </div>
+        <div class="colon">:</div>
+        <div class="time-block" style="--d:.49s">
+          <span class="t-num" id="seconds">00</span>
+          <span class="t-label">sek.</span>
+        </div>
       </div>
     </section>
 
-    <section class="next-anni-section">
-      <h2>Następna Rocznica</h2>
-      <div class="next-anni-display">
-        <div class="next-anni-item"><span id="next-days">-</span><span>dni</span></div>
-        <div class="next-anni-item"><span id="next-hours">-</span><span>godz.</span></div>
-        <div class="next-anni-item"><span id="next-minutes">-</span><span>min.</span></div>
+    <!-- Milestones -->
+    <section class="milestones">
+      <h2>Razem przeżyliśmy</h2>
+      <div class="milestone-grid">
+        <div class="tile" style="--d:.6s">
+          <span class="tile-num" id="total-days">0</span>
+          <span class="tile-label">wszystkich dni</span>
+        </div>
+        <div class="tile" style="--d:.7s">
+          <span class="tile-num" id="total-hours">0</span>
+          <span class="tile-label">godzin</span>
+        </div>
+        <div class="tile" style="--d:.8s">
+          <span class="tile-num" id="total-minutes">0</span>
+          <span class="tile-label">minut</span>
+        </div>
+        <div class="tile" style="--d:.9s">
+          <span class="tile-num" id="total-seconds">0</span>
+          <span class="tile-label">sekund</span>
+        </div>
       </div>
-      <p class="next-anni-date" id="next-anni-date"></p>
     </section>
+
+    <!-- Next anniversary -->
+    <section class="next-anni">
+      <div class="anni-inner">
+        <p class="anni-label">Do następnej rocznicy</p>
+        <div class="anni-row">
+          <div class="anni-unit"><span id="a-days">-</span><span>dni</span></div>
+          <div class="anni-unit"><span id="a-hours">-</span><span>godz.</span></div>
+          <div class="anni-unit"><span id="a-min">-</span><span>min.</span></div>
+        </div>
+        <p class="anni-when" id="anni-when"></p>
+      </div>
+    </section>
+
+    <footer>
+      <p>Stworzone z ♡ tylko dla nas</p>
+    </footer>
 
   </main>
-
-  <footer>
-    <p>Stworzone z ♡ tylko dla nas</p>
-  </footer>
 
   <script src="script.js"></script>
 </body>
