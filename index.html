@@ -1,114 +1,116 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Our Love Story 💕</title>
+  <title>Nasza Historia Miłości 💕</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- Floating hearts canvas -->
   <canvas id="heartsCanvas"></canvas>
 
-  <!-- Main content -->
   <main>
 
     <header>
-      <p class="eyebrow">A love story written in stars</p>
-      <h1>Together Since</h1>
-      <p class="date-display">August 22, 2025</p>
+      <p class="eyebrow">Historia miłości zapisana w gwiazdach</p>
+      <h1>Razem od</h1>
+      <p class="date-display">22 sierpnia 2025</p>
     </header>
 
-    <!-- Counter Section -->
     <section class="counter-section">
       <div class="counter-grid">
         <div class="counter-card">
           <span class="counter-number" id="days">0</span>
-          <span class="counter-label">Days</span>
+          <span class="counter-label">Dni</span>
         </div>
         <div class="counter-card">
           <span class="counter-number" id="hours">0</span>
-          <span class="counter-label">Hours</span>
+          <span class="counter-label">Godziny</span>
         </div>
         <div class="counter-card">
           <span class="counter-number" id="minutes">0</span>
-          <span class="counter-label">Minutes</span>
+          <span class="counter-label">Minuty</span>
         </div>
         <div class="counter-card">
           <span class="counter-number" id="seconds">0</span>
-          <span class="counter-label">Seconds</span>
+          <span class="counter-label">Sekundy</span>
         </div>
       </div>
-      <p class="counter-subtitle">of loving each other</p>
+      <p class="counter-subtitle">kochając się nawzajem</p>
     </section>
 
-    <!-- Photo Hearts Section -->
+    <!--
+      ╔══════════════════════════════════════════════════════╗
+      ║  ABY DODAĆ ZDJĘCIA:                                  ║
+      ║  Umieść swoje zdjęcia w tym samym folderze           ║
+      ║  co index.html i zmień nazwy poniżej:                ║
+      ║    src="foto1.jpg"  ← lewe serce                     ║
+      ║    src="foto2.jpg"  ← środkowe serce (główne)        ║
+      ║    src="foto3.jpg"  ← prawe serce                    ║
+      ╚══════════════════════════════════════════════════════╝
+    -->
     <section class="hearts-section">
-      <h2>Our Memories</h2>
-      <p class="section-sub">Add your photos to these hearts</p>
+      <h2>Nasze Wspomnienia</h2>
 
       <div class="heart-photos-row">
 
-        <!-- Heart Photo 1 -->
-        <div class="heart-photo-wrapper" onclick="triggerUpload('photo1')">
+        <div class="heart-photo-wrapper">
           <div class="heart-clip heart-1">
-            <img id="photo1-img" src="" alt="Your photo" class="heart-photo hidden" />
-            <div class="heart-placeholder" id="photo1-placeholder">
-              <span class="plus-icon">＋</span>
-              <span>Add Photo</span>
+            <img src="foto1.jpg" alt="Nasze pierwsze wspomnienie" class="heart-photo"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+            <div class="heart-placeholder" style="display:none;">
+              <span class="plus-icon">♡</span><span>foto1.jpg</span>
             </div>
           </div>
-          <input type="file" id="photo1" accept="image/*" class="file-input" onchange="loadPhoto(this, 'photo1-img', 'photo1-placeholder')" />
-          <p class="heart-caption">Our First Memory</p>
+          <p class="heart-caption">Nasze Pierwsze Wspomnienie</p>
         </div>
 
-        <!-- Heart Photo 2 (center, bigger) -->
-        <div class="heart-photo-wrapper center-heart" onclick="triggerUpload('photo2')">
+        <div class="heart-photo-wrapper center-heart">
           <div class="heart-clip heart-2">
-            <img id="photo2-img" src="" alt="Your photo" class="heart-photo hidden" />
-            <div class="heart-placeholder" id="photo2-placeholder">
-              <span class="plus-icon">＋</span>
-              <span>Add Photo</span>
+            <img src="foto2.jpg" alt="My" class="heart-photo"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+            <div class="heart-placeholder" style="display:none;">
+              <span class="plus-icon">♡</span><span>foto2.jpg</span>
             </div>
           </div>
-          <input type="file" id="photo2" accept="image/*" class="file-input" onchange="loadPhoto(this, 'photo2-img', 'photo2-placeholder')" />
-          <p class="heart-caption">Us ♡</p>
+          <p class="heart-caption">My ♡</p>
         </div>
 
-        <!-- Heart Photo 3 -->
-        <div class="heart-photo-wrapper" onclick="triggerUpload('photo3')">
+        <div class="heart-photo-wrapper">
           <div class="heart-clip heart-3">
-            <img id="photo3-img" src="" alt="Your photo" class="heart-photo hidden" />
-            <div class="heart-placeholder" id="photo3-placeholder">
-              <span class="plus-icon">＋</span>
-              <span>Add Photo</span>
+            <img src="foto3.jpg" alt="Mój ulubiony dzień" class="heart-photo"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+            <div class="heart-placeholder" style="display:none;">
+              <span class="plus-icon">♡</span><span>foto3.jpg</span>
             </div>
           </div>
-          <input type="file" id="photo3" accept="image/*" class="file-input" onchange="loadPhoto(this, 'photo3-img', 'photo3-placeholder')" />
-          <p class="heart-caption">My Favourite Day</p>
+          <p class="heart-caption">Mój Ulubiony Dzień</p>
         </div>
 
       </div>
+
+      <p class="photo-instructions">
+        💡 Umieść pliki <strong>foto1.jpg</strong>, <strong>foto2.jpg</strong>, <strong>foto3.jpg</strong>
+        w tym samym folderze co <em>index.html</em> — lub zmień ścieżki <code>src</code> w kodzie HTML.
+      </p>
     </section>
 
-    <!-- Love message -->
     <section class="message-section">
       <div class="message-card">
-        <p class="message-quote">"Every moment with you is a moment I treasure forever."</p>
-        <p class="message-sig">With all my love 💕</p>
+        <p class="message-quote">„Każda chwila spędzona z Tobą to chwila, którą będę skarbić na zawsze."</p>
+        <p class="message-sig">Z całą moją miłością 💕</p>
       </div>
     </section>
 
-    <!-- Next anniversary countdown -->
     <section class="next-anni-section">
-      <h2>Next Anniversary</h2>
-      <div id="next-anniversary-counter" class="next-anni-display">
-        <div class="next-anni-item"><span id="next-days">-</span><span>days</span></div>
-        <div class="next-anni-item"><span id="next-hours">-</span><span>hours</span></div>
-        <div class="next-anni-item"><span id="next-minutes">-</span><span>minutes</span></div>
+      <h2>Następna Rocznica</h2>
+      <div class="next-anni-display">
+        <div class="next-anni-item"><span id="next-days">-</span><span>dni</span></div>
+        <div class="next-anni-item"><span id="next-hours">-</span><span>godz.</span></div>
+        <div class="next-anni-item"><span id="next-minutes">-</span><span>min.</span></div>
       </div>
       <p class="next-anni-date" id="next-anni-date"></p>
     </section>
@@ -116,7 +118,7 @@
   </main>
 
   <footer>
-    <p>Made with ♡ just for us</p>
+    <p>Stworzone z ♡ tylko dla nas</p>
   </footer>
 
   <script src="script.js"></script>
